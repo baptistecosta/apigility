@@ -88,14 +88,16 @@ return [
 	'service_manager' => array(
 		'invokables' => [
 			'music.listener.hal-listener' => 'Music\\V1\\Listener\\HalListener',
-			'music.service.hal-entity-renderer' => 'Music\\V1\\Service\\HalEntityRenderer\\HalEntityRenderer',
+			'music.service.hal.entity.linker' => 'Music\\V1\\Service\\HalLinker\\Entity\\HalEntityLinker',
+			'music.service.hal.collection.linker' => 'Music\\V1\\Service\\HalLinker\\Collection\\HalCollectionLinker',
+//			'music.service.hal-entity-renderer' => 'Music\\V1\\Service\\HalEntityRenderer\\HalEntityRenderer',
 		],
 		'factories' => array(
 			'Music\\V1\\Rest\\Album\\AlbumResource' => 'Music\\V1\\Rest\\Album\\AlbumResourceFactory',
 			'Music\\V1\\Rest\\Artist\\ArtistResource' => 'Music\\V1\\Rest\\Artist\\ArtistResourceFactory',
 		),
 		'initializers' => [
-			'Music\\V1\\Service\\HalEntityRenderer\\HalEntityRendererInitializer'
+//			'Music\\V1\\Service\\HalEntityRenderer\\HalEntityRendererInitializer'
 		],
 	),
 

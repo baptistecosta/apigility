@@ -2,20 +2,21 @@
 namespace Music\V1\Listener;
 
 
-use Music\V1\Service\HalEntityRenderer\HalEntityRendererAwareInterface;
-use Music\V1\Service\HalEntityRenderer\HalEntityRendererAwareTrait;
+use Music\V1\Service\HalLinker\Collection\HalCollectionLinker;
+use Music\V1\Service\HalLinker\Entity\HalEntityLinker;
 use Zend\EventManager\Event;
 use Zend\EventManager\EventManagerInterface;
 use Zend\EventManager\ListenerAggregateTrait;
+use Zend\ServiceManager\ServiceLocatorAwareInterface;
 use Zend\ServiceManager\ServiceLocatorAwareTrait;
 
 /**
  * Class HalListener
  * @package Music\V1\Listener
  */
-class HalListener implements HalEntityRendererAwareInterface {
+class HalListener implements ServiceLocatorAwareInterface {
 
-	use HalEntityRendererAwareTrait;
+	use ServiceLocatorAwareTrait;
 
 	/**
 	 * Attach one or more listeners
@@ -38,13 +39,11 @@ class HalListener implements HalEntityRendererAwareInterface {
 	 * @param Event $e
 	 */
 	public function onRenderEntity(Event $e) {
-		$this->getHalEntityRenderer()->setHalEntity($e->getParam('entity'))->addLinks();
-
-		/** @var $halEntityRenderer HalEntityRenderer */
-//		$halEntityRenderer = $this->getServiceLocator()->get('music.service.hal-entity-renderer');
-//		$halEntityRenderer
-//			->setHalEntity($e->getParam('entity'))
-//			->process();
+		/** @var $halEntityLinker HalEntityLinker */
+		$halEntityLinker = $this->getServiceLocator()->get('music.service.hal.entity.linker');
+		$halEntityLinker
+			->setHalResource($e->getParam('entity'))
+			->process();
 	}
 
 	/**
@@ -53,6 +52,11 @@ class HalListener implements HalEntityRendererAwareInterface {
 	 * @param Event $e
 	 */
 	public function onRenderCollection(Event $e) {
+		/** @var $halCollectionLinker HalCollectionLinker */
+		$halCollectionLinker = $this->getServiceLocator()->get('music.service.hal.collection.linker');
+		$halCollectionLinker
+			->setHalResource($e->getParam('collection'))
+			->process();
 
 	}
 }
