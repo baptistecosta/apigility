@@ -29,12 +29,13 @@ class ArtistMapper extends AbstractMapper {
 	 * @return bool|ArtistEntity
 	 */
 	public function fetchOne($artistId) {
-		$results = $this->adapter->query("SELECT * FROM {$this->tableName} WHERE id = ?", [$artistId])->toArray();
-		if (!$artistData = $results[0]) {
+		$resultSet = $this->adapter->query("SELECT * FROM {$this->tableName} WHERE id = ?", [$artistId]);
+		$results = $resultSet->toArray();
+		if (empty($results)) {
 			return false;
 		}
 		$artist = new ArtistEntity();
-		$artist->exchangeArray($artistData);
+		$artist->exchangeArray($results[0]);
 		return $artist;
 	}
 

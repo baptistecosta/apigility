@@ -38,13 +38,15 @@ class AlbumMapper extends AbstractMapper implements ServiceLocatorAwareInterface
 	}
 
 	/**
+	 * Fetch all albums.
+	 *
 	 * @param array $params
 	 * @return AlbumCollection
 	 */
 	public function fetchAll(array $params = []) {
 		$select = new Select($this->tableName);
-		if (!empty($params['conditions']['artist_id'])) {
-			$select->where(['artist_id' => $params['conditions']['artist_id']]);
+		if (!empty($params['artist_id'])) {
+			$select->where(['artist_id' => $params['artist_id']]);
 		}
 		$paginatorAdapter = new DbSelect($select, $this->adapter);
 		$collection = new AlbumCollection($paginatorAdapter);
@@ -52,27 +54,20 @@ class AlbumMapper extends AbstractMapper implements ServiceLocatorAwareInterface
 	}
 
 	/**
+	 * Fetch one album.
+	 *
 	 * @param $albumId
 	 * @return bool|AlbumEntity
 	 */
 	public function fetchOne($albumId) {
 		$resultSet = $this->adapter->query("SELECT * FROM {$this->tableName} WHERE id = ?", [$albumId]);
-		if (!$data = $resultSet->toArray()) {
+		$results = $resultSet->toArray();
+		if (empty($results)) {
 			return false;
 		}
 		$entity = new AlbumEntity();
-		$entity->exchangeArray($data[0]);
+		$entity->exchangeArray($results[0]);
 		return $entity;
-	}
-
-	/**
-	 * @param $artistId
-	 * @return array
-	 */
-	public function findAlbumIdsForArtist($artistId) {
-		$results = $this->adapter->query("SELECT id FROM {$this->tableName} WHERE artist_id = ?", [$artistId]);
-		$albumIds = $results->toArray();
-		return array_map('current', $albumIds);
 	}
 
 	public function patch($id, array $data) {
@@ -80,7 +75,6 @@ class AlbumMapper extends AbstractMapper implements ServiceLocatorAwareInterface
 		$update->set($data)->where(['id' => $id]);
 		$sql = new Sql($this->adapter);
 		$sqlString = $sql->getSqlStringForSqlObject($update);
-		/** @var $result Result */
 		$this->adapter->query($sqlString, Adapter::QUERY_MODE_EXECUTE);
 	}
 

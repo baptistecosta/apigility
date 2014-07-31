@@ -43,7 +43,8 @@ class HalListener implements ServiceLocatorAwareInterface {
 		$halEntityLinker = $this->getServiceLocator()->get('music.service.hal.entity.linker');
 		$halEntityLinker
 			->setHalResource($e->getParam('entity'))
-			->process();
+			->setResource($e->getParam('entity')->entity)
+			->addLinks();
 	}
 
 	/**
@@ -56,7 +57,7 @@ class HalListener implements ServiceLocatorAwareInterface {
 		$halCollectionLinker = $this->getServiceLocator()->get('music.service.hal.collection.linker');
 		$halCollectionLinker
 			->setHalResource($e->getParam('collection'))
-			->process();
-
+			->setResource($e->getParam('collection')->getCollection())
+			->addLinks();
 	}
 }

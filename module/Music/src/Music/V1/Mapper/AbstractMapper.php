@@ -1,5 +1,6 @@
 <?php
 namespace Music\V1\Mapper;
+use Zend\Db\Adapter\AdapterInterface;
 
 
 /**
@@ -15,22 +16,22 @@ class AbstractMapper {
 	protected $tableName;
 
 	/**
-	 * @var \Zend\Db\Adapter\AdapterInterface
+	 * @var AdapterInterface
 	 */
 	protected $adapter;
 
 	/**
-	 * @return \Zend\Db\Adapter\AdapterInterface
+	 * @return AdapterInterface
 	 */
 	public function getAdapter() {
 		return $this->adapter;
 	}
 
 	/**
-	 * @param \Zend\Db\Adapter\AdapterInterface $adapter
+	 * @param AdapterInterface $adapter
 	 * @return $this
 	 */
-	public function setAdapter($adapter) {
+	public function setAdapter(AdapterInterface $adapter) {
 		$this->adapter = $adapter;
 		return $this;
 	}

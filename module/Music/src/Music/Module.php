@@ -27,7 +27,6 @@ class Module implements ApigilityProviderInterface, ServiceProviderInterface, Bo
 		$hal = $serviceManager->get('ViewHelperManager')->get('Hal');
 		$serviceManager->get('music.listener.hal-listener')->attach($hal->getEventManager());
 
-
 		// Event tests
 		/** @var \Zend\Mvc\Application $app */
 /*		$app = $e->getApplication();

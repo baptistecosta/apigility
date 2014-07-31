@@ -2,6 +2,7 @@
 namespace Music\V1\Service\HalLinker\Entity;
 
 use Music\V1\Service\HalLinker\AbstractHalLinker;
+use ZF\Hal\Link\Link;
 
 
 /**
@@ -17,9 +18,10 @@ class HalEntityLinker extends AbstractHalLinker {
 		return self::ENTITY;
 	}
 
-	private function addAlbumEntityLinks() {
+	protected function addAlbumEntityLinks() {
 		/** @var \ZF\Hal\Link\LinkCollection $links */
-		$this->halResource->getLinks()->add(Link::factory([
+		$links = $this->getHalResource()->getLinks();
+		$links->add(Link::factory([
 			'rel' => 'artist',
 			'route' => [
 				'name' => 'music.rest.artist',
@@ -30,21 +32,26 @@ class HalEntityLinker extends AbstractHalLinker {
 		]));
 	}
 
-	private function addArtistEntityLinks() {
-		/** @var $albumMapper \Music\V1\Rest\Album\AlbumMapper */
-		$albumMapper = $this->getServiceLocator()->get('Music\\V1\\Rest\\Album\\AlbumMapper');
-		$albumIds = $albumMapper->findAlbumIdsForArtist($this->resource->getId());
+	protected function addArtistEntityLinks() {
+		$link = new Link('album');
+		$link->setRoute('music.rest.album');
+		$link->setRouteOptions([
+			'query' => [
+				'artist_id' => $this->resource->getId()
+			]
+		]);
+		$this->halResource->getLinks()->add($link, true);
 
-		foreach ($albumIds as $albumId) {
-			$this->halResource->getLinks()->add(Link::factory([
-				'rel' => 'album',
-				'route' => [
-					'name' => 'music.rest.album',
-					'params' => [
-						'album_id' => $albumId
-					]
-				]
-			]));
-		}
+//		$this->halResource->getLinks()->add(Link::factory([
+//			'rel' => 'album',
+//			'route' => [
+//				'name' => 'music.rest.album',
+//				'options' => [
+//					'query' => [
+//						'artist_id' => $this->resource->getId()
+//					]
+//				]
+//			]
+//		]));
 	}
 }

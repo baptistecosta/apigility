@@ -48,9 +48,10 @@ return [
 				1 => 'POST',
 			),
 			'collection_query_whitelist' => [
+				'page',
 				'artist_id'
 			],
-			'page_size' => 25,
+			'page_size' => 10,
 			'page_size_param' => null,
 			'entity_class' => 'Music\\V1\\Rest\\Album\\AlbumEntity',
 			'collection_class' => 'Music\\V1\\Rest\\Album\\AlbumCollection',

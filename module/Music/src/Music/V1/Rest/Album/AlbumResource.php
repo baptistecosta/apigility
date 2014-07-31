@@ -66,12 +66,7 @@ class AlbumResource extends AbstractResourceListener {
 	 * @return ApiProblem|mixed
 	 */
 	public function fetchAll($params = []) {
-		return $this->mapper->fetchAll([
-			'conditions' => array_merge(
-				['artist_id' => $this->getEvent()->getRouteParam('artist_id')],
-				(array) $params
-			)
-		]);
+		return $this->mapper->fetchAll($params->toArray());
 	}
 
 	/**
