@@ -10,7 +10,7 @@ return [
          /**
           * Set the list of allowed origins domain with protocol.
           */
-         'allowed_origins' => ['http://localhost'],
+         'allowed_origins' => [ ],
 
          /**
           * Set the list of HTTP verbs.
