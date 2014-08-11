@@ -50,7 +50,16 @@ class Module implements ApigilityProviderInterface, ServiceProviderInterface, Bo
 	}
 
 	public function getConfig() {
-		return include __DIR__ . '/../../config/module.config.php';
+		$config = [];
+		$configFiles = [
+			include __DIR__ . '/../../config/module.config.php',
+			include __DIR__ . '/../../config/zf-mvc-auth.config.php',
+		];
+
+		foreach ($configFiles as $file) {
+			$config = \Zend\Stdlib\ArrayUtils::merge($config, $file);
+		}
+		return $config;
 	}
 
 	public function getAutoloaderConfig() {

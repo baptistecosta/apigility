@@ -4,8 +4,8 @@
  *
  * The previous config file has been stored in application.config.old
  */
-return array(
-    'modules' => array(
+return [
+    'modules' => [
         'Application',
         'ZF\\DevelopmentMode',
         'ZF\\Apigility',
@@ -26,14 +26,14 @@ return array(
         'Status',
         'StatusLib',
         'Music'
-    ),
-    'module_listener_options' => array(
-        'module_paths' => array(
+    ],
+    'module_listener_options' => [
+        'module_paths' => [
             './module',
             './vendor'
-        ),
-        'config_glob_paths' => array(
-            'config/autoload/{,*.}{global,local}.php'
-        )
-    )
-);
+        ],
+        'config_glob_paths' => [
+            'config/autoload/{,*.}{global,local}.php',
+        ]
+    ]
+];
