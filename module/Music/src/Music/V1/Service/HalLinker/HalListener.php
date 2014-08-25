@@ -1,5 +1,5 @@
 <?php
-namespace Music\V1\Listener;
+namespace Music\V1\Service\HalLinker;
 
 
 use Music\V1\Service\HalLinker\Collection\HalCollectionLinker;
@@ -12,7 +12,7 @@ use Zend\ServiceManager\ServiceLocatorAwareTrait;
 
 /**
  * Class HalListener
- * @package Music\V1\Listener
+ * @package Music\V1\Service\HalLinker
  */
 class HalListener implements ServiceLocatorAwareInterface {
 

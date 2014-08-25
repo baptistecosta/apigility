@@ -30,7 +30,7 @@ class AbstractHalLinkerTest extends \PHPUnit_Framework_TestCase {
 	 * HAL resource getter and setter test.
 	 */
 	public function testGetSetHalResource() {
-		$mockHalEntity = $this->getMock('Zf\\Hal\\Entity');
+		$mockHalEntity = $this->getMock('ZF\\Hal\\Entity', [], [[]]);
 		$this->assertSame($this->instance, $this->instance->setHalResource($mockHalEntity));
 		$this->assertEquals($mockHalEntity, $this->instance->getHalResource());
 	}

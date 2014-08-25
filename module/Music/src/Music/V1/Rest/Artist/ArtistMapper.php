@@ -17,10 +17,11 @@ class ArtistMapper extends AbstractMapper {
 	/**
 	 * @return ArtistCollection
 	 */
-	public function fetchAll() {
+	public function fetchAll(/*$size*/) {
 		$select = new Select($this->tableName);
 		$paginatorAdapter = new DbSelect($select, $this->adapter);
 		$collection = new ArtistCollection($paginatorAdapter);
+//		$collection->setItemCountPerPage($size);
 		return $collection;
 	}
 

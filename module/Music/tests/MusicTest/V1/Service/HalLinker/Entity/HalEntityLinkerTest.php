@@ -26,26 +26,23 @@ class HalEntityLinkerTest extends \PHPUnit_Framework_TestCase {
 	}
 
 	public function testAddAlbumEntityLinks() {
-		$method = new ReflectionMethod($this->instance, 'addAlbumEntityLinks');
-		$method->setAccessible(true);
-
-
-		$linkCollection = new LinkCollection();
-
 		$entity = new AlbumEntity();
-//		$halEntity = $this->getMock('ZF\\Hal\\Entity', ['getLinks']);
-//		$halEntity
-//			->expects($this->any())
-//			->method('getLinks')
-//			->will($this->returnValue($linkCollection));
-
 		$halEntity = new Entity($entity, 1);
 
 		$this->instance->setHalResource($halEntity);
 		$this->instance->setResource($entity);
 
+		$method = new ReflectionMethod($this->instance, 'addAlbumEntityLinks');
+		$method->setAccessible(true);
 		$method->invoke($this->instance);
 
-		$this->assertEquals(1, 1);
+		/** @var $halResource Entity */
+		$link = $this->instance->getHalResource()->getLinks()->get('artist');
+
+		$this->assertInstanceOf('ZF\Hal\Link\Link', $link);
+	}
+
+	public function testAddArtistEntityLinks() {
+
 	}
 }

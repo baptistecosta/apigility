@@ -73,8 +73,8 @@ return [
 				1 => 'POST',
 			],
 			'collection_query_whitelist' => [],
-			'page_size' => 25,
-			'page_size_param' => null,
+			'page_size' => 5,
+			'page_size_param' => 'page_size',
 			'entity_class' => 'Music\\V1\\Rest\\Artist\\ArtistEntity',
 			'collection_class' => 'Music\\V1\\Rest\\Artist\\ArtistCollection',
 			'service_name' => 'Artist',
@@ -88,7 +88,7 @@ return [
 	],
 	'service_manager' => [
 		'invokables' => [
-			'music.listener.hal-listener' => 'Music\\V1\\Listener\\HalListener',
+			'music.listener.hal-listener' => 'Music\\V1\\Service\\HalLinker\\HalListener',
 			'music.service.hal.entity.linker' => 'Music\\V1\\Service\\HalLinker\\Entity\\HalEntityLinker',
 			'music.service.hal.collection.linker' => 'Music\\V1\\Service\\HalLinker\\Collection\\HalCollectionLinker',
 //			'music.service.hal-entity-renderer' => 'Music\\V1\\Service\\HalEntityRenderer\\HalEntityRenderer',

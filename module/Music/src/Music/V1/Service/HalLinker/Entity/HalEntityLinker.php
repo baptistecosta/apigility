@@ -18,6 +18,9 @@ class HalEntityLinker extends AbstractHalLinker {
 		return self::ENTITY;
 	}
 
+	/**
+	 * Add Album links.
+	 */
 	protected function addAlbumEntityLinks() {
 		/** @var \ZF\Hal\Link\LinkCollection $links */
 		$links = $this->getHalResource()->getLinks();
@@ -32,6 +35,9 @@ class HalEntityLinker extends AbstractHalLinker {
 		]));
 	}
 
+	/**
+	 * Add Artist links.
+	 */
 	protected function addArtistEntityLinks() {
 		$link = new Link('album');
 		$link->setRoute('music.rest.album');
@@ -42,6 +48,7 @@ class HalEntityLinker extends AbstractHalLinker {
 		]);
 		$this->halResource->getLinks()->add($link, true);
 
+		// Other method
 //		$this->halResource->getLinks()->add(Link::factory([
 //			'rel' => 'album',
 //			'route' => [
