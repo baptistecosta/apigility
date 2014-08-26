@@ -69,9 +69,8 @@ class ArtistResource extends AbstractResourceListener {
 	 * @param  array $params
 	 * @return ApiProblem|mixed
 	 */
-	public function fetchAll($params = array()) {
-//		$pageSize = $params['page_size'];
-		$artists = $this->mapper->fetchAll(/*$pageSize*/);
+	public function fetchAll($params = []) {
+		$artists = $this->mapper->fetchAll($params->toArray());
 		return $artists;
 	}
 

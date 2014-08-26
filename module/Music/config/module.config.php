@@ -72,7 +72,10 @@ return [
 				0 => 'GET',
 				1 => 'POST',
 			],
-			'collection_query_whitelist' => [],
+			'collection_query_whitelist' => [
+//				'page',
+				'order'
+			],
 			'page_size' => 5,
 			'page_size_param' => 'page_size',
 			'entity_class' => 'Music\\V1\\Rest\\Artist\\ArtistEntity',
